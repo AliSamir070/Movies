@@ -20,6 +20,11 @@ class AppStyle{
       displaySmall: TextStyle(
         fontSize: 8,
         color: date_type_color
+      ),
+      displayMedium: TextStyle(
+        fontSize: 20,
+        color: Colors.white,
+        fontWeight: FontWeight.w600
       )
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
