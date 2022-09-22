@@ -21,11 +21,7 @@ class AppStyle{
         fontSize: 8,
         color: date_type_color
       ),
-      displayMedium: TextStyle(
-        fontSize: 20,
-        color: Colors.white,
-        fontWeight: FontWeight.w600
-      )
+
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: canvasColor,
@@ -37,7 +33,12 @@ class AppStyle{
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.transparent,
       elevation: 0,
-      centerTitle: true
+      centerTitle: true,
+      titleTextStyle: TextStyle(
+          fontSize: 20,
+          color: Colors.white,
+          fontWeight: FontWeight.w600
+      )
     )
   );
 }
