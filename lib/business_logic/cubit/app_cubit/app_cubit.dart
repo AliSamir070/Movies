@@ -13,10 +13,16 @@ class AppCubit extends Cubit<AppStates>{
   static AppCubit get(context)=>BlocProvider.of(context);
 
   int currentIndex = 0;
+  bool addedToWatchlist=false;
 
   List<Widget> screens = [HomeScreen(), SearchScreen() , BrowseScreen(), WatchlistScreen()];
   void setBottomNavItem(int index){
     currentIndex = index;
     emit(AppChangeNavItem());
+  }
+
+  void isAddedToWatchlist(){
+    addedToWatchlist=!addedToWatchlist;
+    emit(AddedMovieToWatchlist());
   }
 }

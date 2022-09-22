@@ -19,6 +19,7 @@ class AppLayout extends StatelessWidget {
                 appBar: AppBar(),
                 extendBodyBehindAppBar: true,
                 bottomNavigationBar: BottomNavigationBar(
+                  type: BottomNavigationBarType.fixed,
                     onTap: (index){
                       cubit.setBottomNavItem(index);
                     },
