@@ -1,5 +1,4 @@
 
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/data/netowrk/movie_api_helper.dart';
 import 'package:movies_app/presentation/layout/app_layout.dart';
@@ -8,7 +7,7 @@ import 'package:movies_app/style/theme/theme_app.dart';
 
 void main() {
   MovieApiHelper.init();
-  runApp(DevicePreview(builder: (context) => MyApp()));
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
