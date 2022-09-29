@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/presentation/layout/categoryMoviesItem.dart';
+import 'package:movies_app/style/theme/theme_app.dart';
 
 import '../../../business_logic/cubit/app_cubit/app_cubit.dart';
 import '../../../business_logic/cubit/app_cubit/app_states.dart';
@@ -7,23 +9,28 @@ import '../../../components/constants/constants.dart';
 import '../../../data/netowrk/movie_api_helper.dart';
 import '../../layout/categoryItem.dart';
 
-class BrowseScreen extends StatelessWidget {
+class BrowseMoviesScreen extends StatelessWidget {
+  static String routeName = "BrowseMoviesScreen";
+
   @override
   Widget build(BuildContext context) {
+    ArgIndex arg = ModalRoute.of(context)!.settings.arguments as ArgIndex;
+    print(arg.IndexCat);
+
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
       child: BlocConsumer<AppCubit, AppStates>(
           listener: (context, state) {
-        if (state is GetDataBrowseSuccessState) print('done');
-      }, builder: (context, state) {
-        if (AppCubit.get(context).Catogerys.isEmpty) {
-          AppCubit.get(context).GetDataBrowse();
+            if (state is GetDataBrowseMoviesSuccessState) print('done');
+          }, builder: (context, state) {
 
+        if (AppCubit.get(context).Movies.isEmpty) {
+          AppCubit.get(context).GetDataBrowseMovies(arg.IndexCat);
         }
         return Container(
           width: double.infinity,
           padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
-          child:AppCubit.get(context).Catogerys.isEmpty
+          child:AppCubit.get(context).Movies.isEmpty
               ? const Center(
             child:  CircularProgressIndicator(
               color: Colors.amber,
@@ -35,12 +42,9 @@ class BrowseScreen extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.05,
               ),
-              const Text(
-                'Browse Category',
-                style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
+               Text(
+                "${arg.NameCat} Movies",
+                style: AppStyle.lightTheme.textTheme.titleLarge,
               ),
               Expanded(
                 child: GridView.builder(
@@ -49,9 +53,9 @@ class BrowseScreen extends StatelessWidget {
                         childAspectRatio: 3 / 2,
                         crossAxisSpacing: 20,
                         mainAxisSpacing: 20),
-                    itemCount: AppCubit.get(context).Catogerys.length,
+                    itemCount: AppCubit.get(context).Movies.length,
                     itemBuilder: (BuildContext ctx, index) {
-                      return CategoryItem(index: index,);
+                      return CategoryMoviesItem(index: index,);
                     }),
               ),
             ],

@@ -21,6 +21,17 @@ class AppStyle{
         fontSize: 8,
         color: date_type_color
       ),
+      titleLarge: TextStyle(
+        fontSize: 22,
+        color: Colors.white,
+        decorationThickness: 0,
+      ),
+      titleMedium:TextStyle(
+        fontSize: 14,
+        color: Colors.white,
+        decorationThickness: 0,
+
+      ),
 
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
