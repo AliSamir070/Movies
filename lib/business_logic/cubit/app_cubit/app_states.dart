@@ -1,6 +1,7 @@
 abstract class AppStates{}
 class AppInitialState extends AppStates{}
 class AppChangeNavItem extends AppStates{}
+class AddedMovieToWatchlist extends AppStates{}
 class BrowseLoadingState extends AppStates{}
 class GetDataBrowseSuccessState extends AppStates{}
 class GetDataBrowseErrorState extends AppStates{
@@ -17,3 +18,4 @@ class GetDataBrowseMoviesErrorState extends AppStates{
   GetDataBrowseMoviesErrorState(this.error);
 
 }
+

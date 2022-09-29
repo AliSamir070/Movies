@@ -112,7 +112,7 @@ class Movie {
   String? originalLanguage;
   String? originalTitle;
   String? overview;
-  int? popularity;
+  dynamic popularity;
   String? posterPath;
   List<dynamic>? productionCompanies;
   List<dynamic>? productionCountries;
@@ -124,7 +124,7 @@ class Movie {
   String? tagline;
   String? title;
   bool? video;
-  int? voteAverage;
+  dynamic voteAverage;
   int? voteCount;
 
   Map<String, dynamic> toJson() {

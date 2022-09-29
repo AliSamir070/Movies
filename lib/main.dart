@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:movies_app/data/netowrk/movie_api_helper.dart';
 import 'package:movies_app/presentation/layout/app_layout.dart';
@@ -5,9 +6,9 @@ import 'package:movies_app/presentation/screen/browseMovies/browseMovies.dart';
 import 'package:movies_app/presentation/screen/details/details_screen.dart';
 import 'package:movies_app/style/theme/theme_app.dart';
 
-void main(){
+void main() {
   MovieApiHelper.init();
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -28,5 +29,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
