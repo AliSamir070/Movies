@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/data/netowrk/movie_api_helper.dart';
 import 'package:movies_app/presentation/layout/app_layout.dart';
+import 'package:movies_app/presentation/screen/browseMovies/browseMovies.dart';
 import 'package:movies_app/presentation/screen/details/details_screen.dart';
 import 'package:movies_app/style/theme/theme_app.dart';
 
@@ -20,8 +21,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppStyle.lightTheme,
       routes: {
-        AppLayout.route: (_) => AppLayout(),
-        DetailsScreen.route: (_) => DetailsScreen()
+        AppLayout.route:(_)=>AppLayout(),
+        DetailsScreen.route:(_)=>DetailsScreen(),
+        BrowseMoviesScreen.routeName : (_)=>BrowseMoviesScreen(),
       },
       initialRoute: AppLayout.route,
     );

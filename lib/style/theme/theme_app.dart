@@ -24,6 +24,20 @@ class AppStyle{
             color: dateTypeColor
         ),
       ),
+      titleLarge: TextStyle(
+        fontSize: 22,
+        color: Colors.white,
+        decorationThickness: 0,
+      ),
+      titleMedium:TextStyle(
+        fontSize: 14,
+        color: Colors.white,
+        decorationThickness: 0,
+
+      ),
+
+    ),
+
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: canvasColor,
       showSelectedLabels: true,
