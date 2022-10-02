@@ -52,7 +52,10 @@ class Movie {
       this.title, 
       this.video, 
       this.voteAverage, 
-      this.voteCount,});
+      this.voteCount,
+      this.status_code,
+      this.status_message,
+      this.success});
 
   Movie.fromJson(dynamic json) {
     adult = json['adult'];
@@ -100,6 +103,9 @@ class Movie {
     video = json['video'];
     voteAverage = json['vote_average'];
     voteCount = json['vote_count'];
+    success = json['success'];
+    status_message = json['status_message'];
+    status_code = json['status_code'];
   }
   bool? adult;
   dynamic backdropPath;
@@ -112,7 +118,7 @@ class Movie {
   String? originalLanguage;
   String? originalTitle;
   String? overview;
-  int? popularity;
+  dynamic popularity;
   String? posterPath;
   List<dynamic>? productionCompanies;
   List<dynamic>? productionCountries;
@@ -124,9 +130,11 @@ class Movie {
   String? tagline;
   String? title;
   bool? video;
-  int? voteAverage;
-  int? voteCount;
-
+  dynamic voteAverage;
+  dynamic voteCount;
+  String? status_message;
+  bool? success;
+  int? status_code;
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['adult'] = adult;
@@ -162,6 +170,9 @@ class Movie {
     map['video'] = video;
     map['vote_average'] = voteAverage;
     map['vote_count'] = voteCount;
+    map['status_message'] = status_message;
+    map['status_code'] = status_code;
+    map['success'] = success;
     return map;
   }
 
