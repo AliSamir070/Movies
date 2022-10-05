@@ -8,7 +8,7 @@ import 'package:movies_app/style/theme/theme_app.dart';
 
 void main() {
   MovieApiHelper.init();
-  runApp(DevicePreview(builder: (context) => MyApp()));
+  runApp(DevicePreview(builder: (context) => const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

@@ -8,12 +8,13 @@ class AppStyle{
   static Color dateTypeColor = Color(0xffB5B4B4);
   static Color bottomNavSelectedColor = Color(0xffFFBB3B);
   static ThemeData lightTheme = ThemeData(
+    primarySwatch: Colors.amber,
     scaffoldBackgroundColor: secondaryColor,
     canvasColor: canvasColor,
     primaryColor: primaryColor,
       textTheme: TextTheme(
         displayLarge:  const TextStyle(
-            fontSize: 17,
+            fontSize: 15,
             color: Colors.white,
             fontWeight: FontWeight.bold
         ),

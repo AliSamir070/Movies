@@ -10,7 +10,7 @@ import '../../presentation/screen/details/details_screen.dart';
 
 //for movie recommended
 Widget movieRecommendedList(BuildContext context,
-    {required String nameCategory, required int numberOfMovie}) {
+    {required String nameCategory}) {
   double sizeWidth = MediaQuery.of(context).size.width;
   double sizeHeight = MediaQuery.of(context).size.height;
   Movie movie = Movie();
@@ -29,7 +29,8 @@ Widget movieRecommendedList(BuildContext context,
           width: sizeWidth * 1,
           height: sizeHeight * 0.30,
           child: ListView.separated(
-            itemCount: numberOfMovie,
+            physics: const BouncingScrollPhysics(),
+            itemCount: cubit.recommendedMovie.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
               return InkWell(
@@ -50,7 +51,7 @@ Widget movieRecommendedList(BuildContext context,
                         children: [
                           CachedNetworkImage(
                             imageUrl:
-                                "${Constants.imageUrl}${movie.posterPath}",
+                                "${Constants.imageUrl}${cubit.recommendedMovie[index]["poster_path"]}",
                             height: sizeHeight * 0.20,
                             imageBuilder: (context, provider) {
                               return Container(
@@ -64,18 +65,14 @@ Widget movieRecommendedList(BuildContext context,
                               );
                             },
                             placeholder: (context, url) {
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  color: AppStyle.bottomNavSelectedColor,
-                                ),
+                              return const Center(
+                                child: CircularProgressIndicator(),
                               );
                             },
                             errorWidget: (context, url, error) {
-                              return Center(
-                                child: Icon(
-                                  Icons.broken_image_outlined,
-                                  color: AppStyle.bottomNavSelectedColor,
-                                ),
+                              return Image.asset(
+                                "assets/images/movie image default.jpg",
+                                fit: BoxFit.cover,
                               );
                             },
                           ),
@@ -104,63 +101,52 @@ Widget movieRecommendedList(BuildContext context,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              Row(
-                                children: [
-                                  const Image(
-                                    image: AssetImage('assets/images/star.png'),
-                                    fit: BoxFit.cover,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    '7.7',
+                              Expanded(
+                                child: Row(
+                                  children: [
+                                    const Image(
+                                      image:
+                                          AssetImage('assets/images/star.png'),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      "${cubit.recommendedMovie[index]["vote_average"]}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayLarge,
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Text(
+                                    "${cubit.recommendedMovie[index]["original_title"]}",
                                     style: Theme.of(context)
                                         .textTheme
                                         .displayLarge,
-                                  )
-                                ],
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis),
                               ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                'DeadPool 2',
-                                style: Theme.of(context).textTheme.displayLarge,
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    '2018',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displaySmall,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    'R',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displaySmall,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    '1h,22m',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displaySmall,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                ],
+                              Expanded(
+                                flex: 1,
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      cubit.recommendedMovie[index]
+                                          ["release_date"],
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displaySmall,
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                  ],
+                                ),
                               )
                             ],
                           ),
@@ -182,13 +168,7 @@ Widget movieRecommendedList(BuildContext context,
 }
 
 //to main movie in home screen
-Widget mainMovie(
-  BuildContext context, {
-  required String pathPosterBg,
-  required String pathPosterMovie,
-  required String movieName,
-  required String movieDate,
-}) {
+Widget mainMovie(BuildContext context) {
   double sizeHeight = MediaQuery.of(context).size.height;
   double sizeWidth = MediaQuery.of(context).size.width;
   var cubit = AppCubit.get(context);
@@ -201,12 +181,24 @@ Widget mainMovie(
       color: AppStyle.secondaryColor,
       child: Stack(
         children: [
-          Image.asset(
-            pathPosterBg,
+          CachedNetworkImage(
+            imageUrl:
+                "${Constants.imageUrl}${cubit.latestMovie["poster_path"]}",
             height: sizeHeight * 0.25,
             width: double.infinity,
             fit: BoxFit.cover,
             filterQuality: FilterQuality.high,
+            placeholder: (context, url) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+            errorWidget: (context, url, error) {
+              return Image.asset(
+                "assets/images/posterBg.jpg",
+                fit: BoxFit.cover,
+              );
+            },
           ),
           Positioned(
             height: sizeHeight * 0.20,
@@ -217,10 +209,24 @@ Widget mainMovie(
               children: [
                 Stack(
                   children: [
-                    Image.asset(
-                      pathPosterMovie,
-                      fit: BoxFit.fill,
+                    CachedNetworkImage(
+                      imageUrl:
+                          "${Constants.imageUrl}${cubit.latestMovie["poster_path"]}",
+                      fit: BoxFit.cover,
+                      height: sizeHeight * 0.18,
+                      width: 100,
                       filterQuality: FilterQuality.high,
+                      placeholder: (context, url) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
+                      errorWidget: (context, url, error) {
+                        return Image.asset(
+                          "assets/images/posterDefault.jpg",
+                          fit: BoxFit.cover,
+                        );
+                      },
                     ),
                     Positioned(
                         child: Material(
@@ -238,18 +244,18 @@ Widget mainMovie(
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        movieName,
+                        cubit.latestMovie["original_title"],
                         style: Theme.of(context).textTheme.displayLarge,
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        movieDate,
+                        cubit.latestMovie["release_date"],
                         style: Theme.of(context).textTheme.displaySmall,
                       ),
                     ],
@@ -266,9 +272,7 @@ Widget mainMovie(
 
 //for list view movie newReleases
 Widget movieNewReleasesList(BuildContext context,
-    {required String nameCategory,
-    required int numberOfMovie,
-    required String imagePathMovie}) {
+    {required String nameCategory}) {
   double sizeHeight = MediaQuery.of(context).size.height;
   double sizeWidth = MediaQuery.of(context).size.width;
   Movie movie = Movie();
@@ -295,7 +299,8 @@ Widget movieNewReleasesList(BuildContext context,
               width: sizeWidth * 1,
               height: sizeHeight * 0.20,
               child: ListView.separated(
-                itemCount: numberOfMovie,
+                physics: const BouncingScrollPhysics(),
+                itemCount: cubit.popularMovie.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return InkWell(
@@ -314,7 +319,7 @@ Widget movieNewReleasesList(BuildContext context,
                               borderRadius: BorderRadius.circular(5)),
                           child: CachedNetworkImage(
                             imageUrl:
-                                "${Constants.imageUrl}${movie.posterPath}",
+                                "${Constants.imageUrl}${cubit.popularMovie[index]["poster_path"]}",
                             height: sizeHeight * 0.20,
                             imageBuilder: (context, provider) {
                               return Container(
@@ -325,18 +330,14 @@ Widget movieNewReleasesList(BuildContext context,
                               );
                             },
                             placeholder: (context, url) {
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  color: AppStyle.bottomNavSelectedColor,
-                                ),
+                              return const Center(
+                                child: CircularProgressIndicator(),
                               );
                             },
                             errorWidget: (context, url, error) {
-                              return Center(
-                                child: Icon(
-                                  Icons.broken_image_outlined,
-                                  color: AppStyle.bottomNavSelectedColor,
-                                ),
+                              return Image.asset(
+                                "assets/images/movie image default.jpg",
+                                fit: BoxFit.cover,
                               );
                             },
                           ),
