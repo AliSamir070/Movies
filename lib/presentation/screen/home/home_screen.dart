@@ -12,6 +12,7 @@ class HomeScreen extends StatelessWidget {
     return Container(
       width: double.infinity,
       child: Center(child: MovieItem(movie: Movie(
+        id: 1027509,
         posterPath: "/pIkRyD18kl4FhoCNQuWxWu5cBLM.jpg",
         title: "Dorra searching gold box",
         releaseDate: "1980-03-15",

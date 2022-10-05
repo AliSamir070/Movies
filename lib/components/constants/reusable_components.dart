@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:movies_app/components/constants/constants.dart';
 import 'package:movies_app/presentation/screen/details/details_screen.dart';
 import 'package:movies_app/style/theme/theme_app.dart';
@@ -59,9 +60,12 @@ class NewMovieItem extends StatelessWidget {
 class MovieItem extends StatelessWidget {
   Movie movie;
   MovieItem({required this.movie});
-
+  
   @override
   Widget build(BuildContext context) {
+    //Duration duration = Duration(minutes: movie.runtime!);
+    DateFormat format = DateFormat.y();
+    DateTime time = DateTime.parse(movie.releaseDate!);
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return InkWell(
@@ -125,7 +129,7 @@ class MovieItem extends StatelessWidget {
                         ),
                         SizedBox(width: 10,),
                         Text(
-                          '7.7',
+                          movie.voteAverage!.toStringAsFixed(1),
                           style: Theme.of(context).textTheme.displayLarge,
                         )
                       ],
@@ -139,7 +143,7 @@ class MovieItem extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '2018',
+                          format.format(time),
                           style: Theme.of(context).textTheme.displaySmall,
                         ),
                         SizedBox(width: 10,),
@@ -149,7 +153,7 @@ class MovieItem extends StatelessWidget {
                         ),
                         SizedBox(width: 10,),
                         Text(
-                          '1h,22m',
+                          '1h 13m',
                           style: Theme.of(context).textTheme.displaySmall,
                         ),
                         SizedBox(width: 10,),

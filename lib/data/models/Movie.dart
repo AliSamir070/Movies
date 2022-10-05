@@ -130,7 +130,7 @@ class Movie {
   String? tagline;
   String? title;
   bool? video;
-  dynamic voteAverage;
+  double? voteAverage;
   dynamic voteCount;
   String? status_message;
   bool? success;
